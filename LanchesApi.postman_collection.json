@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "bf2453e6-7b65-4b18-af72-fbb1f7152afd",
+		"name": "LanchesApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28222155"
+	},
+	"item": [
+		{
+			"name": "Alunos",
+			"item": [
+				{
+					"name": "PostAluno",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAluno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Guilherme Spinola dos Santos\",\r\n    \"foto\": \"bla23\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/aluno/082220025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aluno",
+								"082220025"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutAluno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Guilherme Spinola dos Santos\",\r\n    \"foto\": \"bla23\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/aluno/082220025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aluno",
+								"082220025"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAluno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/aluno/082220025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aluno",
+								"082220025"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAlunos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/aluno/082220025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aluno",
+								"082220025"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lanches",
+			"item": [
+				{
+					"name": "Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"4\",\r\n    \"dataLiberacao\" : \"2025/11/25\",\r\n    \"raAluno\" : \"08220025\",\r\n    \"quantidade\" : 1\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/lanche/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lanche",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Guilherme Spinola dos Santos\",\r\n    \"foto\": \"bla23\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/lanche/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lanche",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Guilherme Spinola dos Santos\",\r\n    \"foto\": \"bla23\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/lanche/082220025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lanche",
+								"082220025"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Guilherme Spinola dos Santos\",\r\n    \"foto\": \"bla23\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/lanche/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lanche",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/lanche",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lanche"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetNextId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/lanche",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lanche"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
