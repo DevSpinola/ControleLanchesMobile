@@ -6,10 +6,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
-import { getLanches, deleteLanche, marcarLancheEntregue } from "../../services/lancheservice";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { getLanches, deleteLanche, marcarLancheEntregue, getLanchesByData } from "../../services/lancheservice";
 import { getAlunos } from "../../services/alunoservice";
 import CardLanche from "../../components/CardLanche/CardLanche";
 
@@ -17,10 +19,12 @@ export default function GerenciarLanches({ navigation }) {
   const [lanches, setLanches] = useState([]);
   const [alunos, setAlunos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filtroData, setFiltroData] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
       loadData();
-    }, []);
+    }, [filtroData]);
   // Função para carregar dados quando a tela receber foco
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -33,12 +37,16 @@ export default function GerenciarLanches({ navigation }) {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [lanchesData, alunosData] = await Promise.all([
-        getLanches(),
-        getAlunos()
-      ]);
-      setLanches(lanchesData);
+      const alunosData = await getAlunos();
       setAlunos(alunosData);
+
+      let lanchesData;
+      if (filtroData) {
+        lanchesData = await getLanchesByData(filtroData);
+      } else {
+        lanchesData = await getLanches();
+      }
+      setLanches(lanchesData);
     } catch (error) {
       console.error("Erro ao carregar dados:", error);
       Alert.alert("Erro", "Não foi possível carregar os dados.");
@@ -124,6 +132,21 @@ export default function GerenciarLanches({ navigation }) {
     }
   };
 
+  const onDateChange = (event, selectedDate) => {
+    setShowDatePicker(Platform.OS === 'ios');
+    if (selectedDate) {
+      setFiltroData(selectedDate);
+    }
+  };
+
+  const limparFiltro = () => {
+    setFiltroData(null);
+  };
+
+  const formatarData = (data) => {
+    return data ? data.toLocaleDateString('pt-BR') : '';
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -134,13 +157,53 @@ export default function GerenciarLanches({ navigation }) {
         </TouchableOpacity>
       </View>
 
+      <View style={styles.filtroContainer}>
+        <Text style={styles.filtroLabel}>Filtrar por data (opcional):</Text>
+        <View style={styles.filtroRow}>
+          <TouchableOpacity 
+            style={styles.dateButton} 
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Ionicons name="calendar-outline" size={20} color="#007AFF" />
+            <Text style={styles.dateButtonText}>
+              {filtroData ? formatarData(filtroData) : 'Selecionar data'}
+            </Text>
+          </TouchableOpacity>
+          
+          {filtroData && (
+            <TouchableOpacity style={styles.clearButton} onPress={limparFiltro}>
+              <Ionicons name="close-circle" size={20} color="#FF3B30" />
+              <Text style={styles.clearButtonText}>Limpar</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        
+        {showDatePicker && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={filtroData || new Date()}
+            mode="date"
+            is24Hour={true}
+            display="default"
+            onChange={onDateChange}
+          />
+        )}
+      </View>
+
       {lanches.length === 0 && !loading ? (
         <View style={styles.emptyContainer}>
           <Ionicons name="fast-food-outline" size={64} color="#ccc" />
-          <Text style={styles.emptyText}>Nenhuma autorização cadastrada</Text>
-          <TouchableOpacity style={styles.emptyButton} onPress={handleAddNew}>
-            <Text style={styles.emptyButtonText}>Cadastrar Primeira Autorização</Text>
-          </TouchableOpacity>
+          <Text style={styles.emptyText}>
+            {filtroData ? 
+              `Nenhum lanche encontrado para ${formatarData(filtroData)}` : 
+              "Nenhuma autorização cadastrada"
+            }
+          </Text>
+          {!filtroData && (
+            <TouchableOpacity style={styles.emptyButton} onPress={handleAddNew}>
+              <Text style={styles.emptyButtonText}>Cadastrar Primeira Autorização</Text>
+            </TouchableOpacity>
+          )}
         </View>
       ) : (
         <ScrollView
@@ -195,6 +258,57 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: "white",
     fontWeight: "bold",
+    marginLeft: 4,
+  },
+  filtroContainer: {
+    backgroundColor: "white",
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e0e0e0",
+  },
+  filtroLabel: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 12,
+  },
+  filtroRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  dateButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#007AFF",
+    flex: 1,
+  },
+  dateButtonText: {
+    fontSize: 16,
+    color: "#007AFF",
+    fontWeight: "500",
+    marginLeft: 8,
+  },
+  clearButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFF2F2",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#FF3B30",
+  },
+  clearButtonText: {
+    fontSize: 14,
+    color: "#FF3B30",
+    fontWeight: "500",
     marginLeft: 4,
   },
   scrollContainer: {

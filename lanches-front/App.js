@@ -5,7 +5,6 @@ import SolicitarLanches from './screens/SolicitarLanches';
 import GerenciarLanches from './screens/GerenciarLanches';
 import GerenciarAlunos from './screens/GerenciarAlunos/gerenciarAlunos';
 import CadastroAluno from './screens/CadastroAluno/cadastroAluno';
-import ConsultarLanches from './screens/ConsultarLanches';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,11 +24,6 @@ export default function App() {
             headerShown: true,
             title: route.params?.lancheId ? "Editar Autorização" : "Solicitar Lanche"
           })} 
-        />
-        <Stack.Screen 
-          name="ConsultarLanches" 
-          component={ConsultarLanches} 
-          options={{ headerBackVisible: true, headerShown: true, title: "Consultar Lanches" }} 
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -14,41 +14,33 @@ export default function Home({ navigation, route }) {
 
       {/* Menu de Opções */}
       <View style={styles.menuContainer}>
-        <TouchableOpacity 
-          style={styles.menuButton} 
-          onPress={() => navigation.navigate('SolicitarLanches')}
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("SolicitarLanches")}
         >
           <Ionicons name="fast-food" size={24} color="#007AFF" />
           <Text style={styles.menuText}>Solicitar Lanche</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => navigation.navigate('GerenciarLanches')}
+          onPress={() => navigation.navigate("GerenciarLanches")}
         >
-          <Ionicons name="list" size={24} color="#007AFF" />
+          <Ionicons name="restaurant" size={24} color="#007AFF" />
           <Text style={styles.menuText}>Gerenciar Lanches</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => navigation.navigate('ConsultarLanches')}
-        >
-          <Ionicons name="search" size={24} color="#007AFF" />
-          <Text style={styles.menuText}>Consultar Lanches</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('GerenciarAlunos')}
+          onPress={() => navigation.navigate("GerenciarAlunos")}
         >
           <Ionicons name="people" size={24} color="#007AFF" />
           <Text style={styles.menuText}>Gerenciar Alunos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => navigation.navigate('CadastroAluno')}
+          onPress={() => navigation.navigate("CadastroAluno")}
         >
           <Ionicons name="person-add" size={24} color="#007AFF" />
           <Text style={styles.menuText}>Cadastrar Aluno</Text>
@@ -104,10 +96,25 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     borderLeftColor: "#007AFF",
   },
+  menuContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  menuTextContainer: {
+    marginLeft: 15,
+    flex: 1,
+  },
   menuText: {
     fontSize: 18,
     color: "#333",
-    marginLeft: 15,
     fontWeight: "500",
+    marginLeft: 10,
+  },
+  menuSubtext: {
+    fontSize: 14,
+    color: "#666",
+    marginTop: 2,
+    fontStyle: "italic",
   },
 });
