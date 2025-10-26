@@ -58,6 +58,32 @@ class LancheController {
             .catch(error => { return res.status(500).json(error) });
     }
 
+    async marcarEntregue(req, res) {
+        await LancheModel.findOneAndUpdate(
+                { "id": req.params.id }, 
+                { entregue: true }, 
+                { new: true }
+             )
+            .then(response => { return res.status(200).json(response) })
+            .catch(error => { return res.status(500).json(error) });
+    }
+
+    async getLanchesByData(req, res) {
+        const { data } = req.params;
+        const dataInicio = new Date(data);
+        const dataFim = new Date(dataInicio);
+        dataFim.setDate(dataFim.getDate() + 1);
+
+        await LancheModel.find({ 
+            dataLiberacao: {
+                $gte: dataInicio,
+                $lt: dataFim
+            }
+        }).sort('raAluno')
+            .then(response => { return res.status(200).json(response) })
+            .catch(error => { return res.status(500).json(error) });
+    }
+
 }
 
 module.exports = new LancheController();

@@ -31,6 +31,11 @@ const LancheSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  entregue: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
 });
 
 const Lanche = mongoose.model("Lanche", LancheSchema);
