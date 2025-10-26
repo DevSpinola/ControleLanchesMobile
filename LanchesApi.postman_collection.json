@@ -225,6 +225,33 @@
 					"response": []
 				},
 				{
+					"name": "GetByData",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Guilherme Spinola dos Santos\",\r\n    \"foto\": \"bla23\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/lanche/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lanche",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GetAll",
 					"request": {
 						"method": "GET",
