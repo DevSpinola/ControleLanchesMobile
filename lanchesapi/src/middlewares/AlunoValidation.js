@@ -2,7 +2,14 @@ const AlunoModel = require('../model/AlunoModel');
 
 //const AlunoValidation = async(req, res, next)
 async function AlunoValidation(req, res, next) {
-    console.log(req.body);
+    console.log("=== DADOS RECEBIDOS NA API ===");
+    console.log("RA:", req.body.ra);
+    console.log("Nome:", req.body.nome);
+    console.log("Foto presente:", !!req.body.foto);
+    console.log("Tamanho da foto:", req.body.foto ? req.body.foto.length : 0);
+    console.log("Params RA:", req.params.ra);
+    console.log("==============================");
+    
     const { ra, nome, foto } = req.body;
 
     let alteracaoRegistro = req.params.ra != null;
@@ -29,7 +36,7 @@ async function AlunoValidation(req, res, next) {
 
         let existe = (await AlunoModel.countDocuments({ "ra": ra })) >= 1;
         if (existe)
-            return res.status(400).json({ erro: 'Já existe uma pessoa cadastrada com este ra' });
+            return res.status(400).json({ erro: 'Já existe um aluno cadastrado com este ra' });
     }
 
     return next();
